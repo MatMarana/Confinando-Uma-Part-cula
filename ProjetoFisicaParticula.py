@@ -1,8 +1,12 @@
 from math import sqrt, sin
+import sympy as sp
 
 ladoCaixa = float(input("Digite o largura da caixa"))
 nInicial = int(input("Digite o n Inicial"))
 nFinal = int(input("Digite o n Final"))
+
+a = int(input("Digite o valor de a"))
+b = int(input("Digite o valor de b"))
 
 MASSAELETRON = 9.11e-31
 MASSAPROTON = 1.67E-27
@@ -75,6 +79,18 @@ def comprimentoOndaDeBroglie(particula):
 
     return comprimentoInicial, comprimentoFinal
     
+def probabilidade():
+    valoresInicial = funcaoOnda(ladoCaixa, nInicial)
+    valoresFinal = funcaoOnda(ladoCaixa, nFinal)
+    x = sp.simblos('x')
+
+    funcaoInicial = valoresInicial[0] * sin(valoresInicial[1] * x) 
+    funcaoFinal = valoresFinal[0] * sin(valoresInicial[1] * x)
+
+    probabilidadeInicial = sp.integrate((funcaoInicial**2),(x,a,b)) 
+    probabilidadeFinal = sp.integrate((funcaoFinal**2),(x,a,b))
+
+    return probabilidadeInicial, probabilidadeFinal
 
 
 # 1 / lambda = R(1/nf^2 - 1/ni^2)
