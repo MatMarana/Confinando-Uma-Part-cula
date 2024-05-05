@@ -19,11 +19,11 @@ def onclick():
         messagebox.showinfo('ERRO', "Preencha todos os valores")
     else:
         ladoCaixa = float(ladoCaixa)
-        nInicial = int(nInicial)
-        nFinal = int(nFinal)  
-        valorA = int(ladoCaixa)
-        valorB = int(nInicial)
-           
+        nInicial = float(nInicial)
+        nFinal = float(nFinal)  
+        valorA = float(ladoCaixa)
+        valorB = float(nInicial)
+
     calculaValores()
 
 def eletron():
@@ -35,6 +35,7 @@ def proton():
     particula = 'Proton'
     
 def calculaValores():
+
     # Funções de Onda
     funcaoInicial = funcaoOnda(ladoCaixa,nInicial) 
     funcaoFinal = funcaoOnda(ladoCaixa,nFinal)
@@ -50,10 +51,10 @@ def calculaValores():
     velocidade = velocidadeParticula(ladoCaixa,nInicial,nFinal,particula)
 
     #Comprimento De Broglie
-    comprimentoDeBrglie = comprimentoOndaDeBroglie(particula)
+    comprimentoDeBrglie = comprimentoOndaDeBroglie(ladoCaixa,nInicial,nFinal,particula)
 
     #Probabilidade
-    valorProbabilidade = probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB)
+    #valorProbabilidade = probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB)
 
 
 
@@ -96,5 +97,8 @@ btn3.place(x=230, y=270,anchor=CENTER)
 
 btn1 = Button(janela, text="Enviar valores", command=onclick)
 btn1.place(x=200, y=300,anchor=CENTER)
+
+rotulo = Label(janela, text="Calculadora 1", font=("Arial Bold", 14))
+rotulo.place(x=80,y=10, anchor=N)
 
 janela.mainloop()

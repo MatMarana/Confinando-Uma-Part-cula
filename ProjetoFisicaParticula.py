@@ -3,11 +3,6 @@ import sympy as sp
 import matplotlib.pyplot as plt
 import numpy as np
 
-ladoCaixa = float(input("Digite o largura da caixa"))
-nInicial = int(input("Digite o n Inicial"))
-nFinal = int(input("Digite o n Final"))
-
-
 MASSAELETRON = 9.11e-31
 MASSAPROTON = 1.67E-27
 PLANCKEV = 4.136e-15
@@ -67,13 +62,13 @@ def velocidadeParticula(ladoCaixa,nInicial,nFinal,particula):
 
     return velocidadeInicial, velocidadeFinal
 
-def comprimentoOndaDeBroglie(particula):
+def comprimentoOndaDeBroglie(ladoCaixa,nInicial,nFinal,particula):
     if particula == 'Eletron':
-        velocidade = velocidadeParticula("Eletron")
+        velocidade = velocidadeParticula(ladoCaixa,nInicial,nFinal,"Eletron")
         comprimentoInicial = PLANCKJS / (MASSAELETRON * velocidade[0])
         comprimentoFinal = PLANCKJS / (MASSAELETRON * velocidade[1])
     elif particula == 'Proton':
-        velocidade = velocidadeParticula("Proton")
+        velocidade = velocidadeParticula(ladoCaixa,nInicial,nFinal,"Proton")
         comprimentoInicial = PLANCKJS / (MASSAPROTON * velocidade[0])
         comprimentoFinal = PLANCKJS / (MASSAPROTON * velocidade[1])
 
@@ -82,7 +77,7 @@ def comprimentoOndaDeBroglie(particula):
 def probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB):
     valoresInicial = funcaoOnda(ladoCaixa, nInicial)
     valoresFinal = funcaoOnda(ladoCaixa, nFinal)
-    x = sp.simblos('x')
+    x = sp.symbols('x')
 
     funcaoInicial = valoresInicial[0] * sin(valoresInicial[1] * x) 
     funcaoFinal = valoresFinal[0] * sin(valoresInicial[1] * x)
@@ -92,41 +87,69 @@ def probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB):
 
     return probabilidadeInicial, probabilidadeFinal
 
-
-L = ladoCaixa  # Lado da caixa (comprimento)
-n = nInicial    # Nível quântico
-AInicial = funcaoOnda(ladoCaixa,nInicial)  # Amplitude
-
 # Função de onda
-def wave_function(x):
-    return AInicial[0] * np.sin(n * np.pi * x / L)
+def wave_functionInicial(nInicial, x, ladoCaixa):
+    AInicial = funcaoOnda(ladoCaixa,nInicial) 
+    return AInicial[0] * np.sin(nInicial * np.pi * x / ladoCaixa)
 
+def wave_functionFinal(nFinal, x, ladoCaixa):
+    AFinal = funcaoOnda(ladoCaixa,nFinal) 
+    return AFinal[0] * np.sin(nFinal * np.pi * x / ladoCaixa)
+
+
+def plotGraphicFunctionInicial(ladoCaixa,nInicial):
 # Valores de x (posição)
-x_values = np.linspace(0, L, 1000)
-
+    x_values = np.linspace(0, ladoCaixa, 1000)
 # Calcula os valores da função de onda
-psi_values = wave_function(x_values)
+    psi_values = wave_functionInicial(nInicial,x_values,ladoCaixa)
+# Valor da prbabilidade
+    prob_values = psi_values**2
 
-# Plota o gráfico
-plt.figure(figsize=(8, 6))
-plt.plot(x_values, psi_values, label=f"n = {n}")
-plt.xlabel("Posição (x)")
-plt.ylabel("Função de Onda (Ψ(x))")
-plt.title("Gráfico da Função de Onda")
-plt.grid(True)
-plt.legend()
-plt.show()
+# Plota o gráfico da função
+    plt.figure(figsize=(8, 6))
+    plt.plot(x_values, psi_values, label=f"n = {nInicial}")
+    plt.xlabel("Posição (x)")
+    plt.ylabel("Função de Onda (Ψ(x))")
+    plt.title("Gráfico da Função de Onda")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
+# Plota o gráfico da probabilidade
+    plt.plot(x_values, prob_values, label="Probabilidade")
+    plt.xlabel("Posição (x)")
+    plt.ylabel("Probabilidade")
+    plt.title("Gráfico de Probabilidade da Função de Onda")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
+def plotGraphicFunctionFinal(ladoCaixa,nFinal):
+# Valores de x (posição)
+    x_values = np.linspace(0, ladoCaixa, 1000)
+# Calcula os valores da função de onda
+    psi_values = wave_functionFinal(nFinal,x_values,ladoCaixa)
+# Valor da prbabilidade
+    prob_values = psi_values**2
 
-prob_values = psi_values**2
-
-plt.plot(x_values, prob_values, label="Probabilidade")
-plt.xlabel("Posição (x)")
-plt.ylabel("Probabilidade")
-plt.title("Gráfico de Probabilidade da Função de Onda")
-plt.legend()
-plt.grid(True)
-plt.show()
+# Plota o gráfico da função
+    plt.figure(figsize=(8, 6))
+    plt.plot(x_values, psi_values, label=f"n = {nFinal}")
+    plt.xlabel("Posição (x)")
+    plt.ylabel("Função de Onda (Ψ(x))")
+    plt.title("Gráfico da Função de Onda")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
+# Plota o gráfico da probabilidade
+    plt.plot(x_values, prob_values, label="Probabilidade")
+    plt.xlabel("Posição (x)")
+    plt.ylabel("Probabilidade")
+    plt.title("Gráfico de Probabilidade da Função de Onda")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
     
 
