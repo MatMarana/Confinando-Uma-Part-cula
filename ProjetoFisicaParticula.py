@@ -7,8 +7,6 @@ ladoCaixa = float(input("Digite o largura da caixa"))
 nInicial = int(input("Digite o n Inicial"))
 nFinal = int(input("Digite o n Final"))
 
-a = int(input("Digite o valor de a"))
-b = int(input("Digite o valor de b"))
 
 MASSAELETRON = 9.11e-31
 MASSAPROTON = 1.67E-27
@@ -44,7 +42,7 @@ def energiaFoton(n):
     energiaFoton = -13.6 / (n**2)
     return energiaFoton
 
-def foton():
+def foton(nInicial,nFinal):
     energiaInicial = energiaFoton(nInicial)
     energiaFinal = energiaFoton(nFinal)
     energiaAbsoluta = abs(energiaFinal - energiaInicial)
@@ -55,7 +53,7 @@ def foton():
     return comprimentoOnda,frequenciaFoton,energiaInicial,energiaFinal
 
 
-def velocidadeParticula(particula):
+def velocidadeParticula(ladoCaixa,nInicial,nFinal,particula):
     if particula == 'Eletron':
         energiaInicial = energiaNivelQuantico(ladoCaixa,nInicial,"Eletron")
         energiaFinal = energiaNivelQuantico(ladoCaixa,nFinal,"Eletron")
@@ -81,7 +79,7 @@ def comprimentoOndaDeBroglie(particula):
 
     return comprimentoInicial, comprimentoFinal
     
-def probabilidade():
+def probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB):
     valoresInicial = funcaoOnda(ladoCaixa, nInicial)
     valoresFinal = funcaoOnda(ladoCaixa, nFinal)
     x = sp.simblos('x')
@@ -89,19 +87,19 @@ def probabilidade():
     funcaoInicial = valoresInicial[0] * sin(valoresInicial[1] * x) 
     funcaoFinal = valoresFinal[0] * sin(valoresInicial[1] * x)
 
-    probabilidadeInicial = sp.integrate((funcaoInicial**2),(x,a,b)) 
-    probabilidadeFinal = sp.integrate((funcaoFinal**2),(x,a,b))
+    probabilidadeInicial = sp.integrate((funcaoInicial**2),(x,valorA,valorB)) 
+    probabilidadeFinal = sp.integrate((funcaoFinal**2),(x,valorA,valorB))
 
     return probabilidadeInicial, probabilidadeFinal
 
 
-L = 1.0  # Lado da caixa (comprimento)
-n = 3    # Nível quântico
-A = 1.0  # Amplitude
+L = ladoCaixa  # Lado da caixa (comprimento)
+n = nInicial    # Nível quântico
+AInicial = funcaoOnda(ladoCaixa,nInicial)  # Amplitude
 
 # Função de onda
 def wave_function(x):
-    return A * np.sin(n * np.pi * x / L)
+    return AInicial[0] * np.sin(n * np.pi * x / L)
 
 # Valores de x (posição)
 x_values = np.linspace(0, L, 1000)
@@ -130,76 +128,6 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-
-while(True):
-    print("Escolha uma opção:")
-    print("1 - Calcular a função da onda")
-    print("2 - Calcular a Energia no nível quantico")
-    print("3 - Calcular os atributos do Fóton")
-    print("4 - Calcular a velocidade da particula")
-    print("5 - Calcular o comprimento da onda de De Broglie")
-    print("6 - Calcular a probabilidade")
-    escolha = int(input())
-
-    if escolha == 1:
-        funcaoInicial = funcaoOnda(ladoCaixa, nInicial)
-        funcaoFinal = funcaoOnda(ladoCaixa, nFinal)
-        print("O valor da função no nivel inicial: ")
-        print(funcaoInicial[0], " ( ", funcaoInicial[1], "x)")
-        print("O valor da função no nivel final: ")
-        print(funcaoFinal[0], " ( ", funcaoFinal[1], "x)")
-    elif escolha == 2:
-        print("Escolha a particula desejada: ")
-        print("1 - Para Eletron")
-        print("2 - para Proton")
-        escolhaParticula = int(input())
-        if escolhaParticula == 1:
-            energiaInicial = energiaNivelQuantico(ladoCaixa, nInicial, "Eletron")
-            energiaFinal = energiaNivelQuantico(ladoCaixa, nFinal, "Eletron")
-        elif escolhaParticula == 2:
-            energiaInicial = energiaNivelQuantico(ladoCaixa, nInicial, "Proton")
-            energiaFinal = energiaNivelQuantico(ladoCaixa, nFinal, "Proton")
-        
-        print("A energia da particula desejada em J/s, no nivel inicial:")
-        print(energiaInicial[0])
-        print("A energia da particula desejada em eV, no nivel inicial:")
-        print(energiaInicial[1])
-        print("A energia da particula desejada em J/s, no nivel final:")
-        print(energiaFinal[0])
-        print("A energia da particula desejada em eV, no nivel final:")
-        print(energiaFinal[1])
-    elif escolha == 3:
-        fotonMedidas = foton()
-        print("compirmento de onda", fotonMedidas[0])
-        print("frequencia", fotonMedidas[1])
-    elif escolha == 4:
-        print("Escolha a particula desejada: ")
-        print("1 - Para Eletron")
-        print("2 - para Proton")
-        escolhaParticula = int(input())
-        if escolhaParticula == 1:
-            velocidade = velocidadeParticula("Eletron")
-        elif escolhaParticula == 2:
-            velocidade = velocidadeParticula("Proton")
-
-        print("A energia da particula desejada  no nivel inicial:")
-        print(velocidade[0])
-        print("A energia da particula desejada  no nivel inicial:")
-        print(velocidade[1])
-    elif escolha == 5:
-        print("Escolha a particula desejada: ")
-        print("1 - Para Eletron")
-        print("2 - para Proton")
-        escolhaParticula = int(input())
-        if escolhaParticula == 1:
-            compirmentoDeBroglie = comprimentoOndaDeBroglie("Eletron")
-        elif escolhaParticula == 2:
-            compirmentoDeBroglie = comprimentoOndaDeBroglie("Proton")
-    elif escolha == 6:
-        prob = probabilidade()
-    elif escolha == 0:
-        break
-    
     
 
 # 1 / lambda = R(1/nf^2 - 1/ni^2)
