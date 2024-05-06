@@ -152,14 +152,20 @@ def plotGraphicFunctionFinal(ladoCaixa,nFinal):
     plt.show()
 
 
-def calculaLado(Amplitude, K):
+def calculaLado(Amplitude, K, Xp):
     ladoCaixa = 2/(Amplitude**2)
     nivelParticula = calculaNivel(ladoCaixa, K)
-    return ladoCaixa,nivelParticula
+    Xp = Xp * ladoCaixa
+    valorXp = calculaXp(Xp, ladoCaixa, nivelParticula)
+    return ladoCaixa,nivelParticula,valorXp
 
 def calculaNivel(ladoCaixa, K):
     nivelParticula = (ladoCaixa * K) / PI
     return nivelParticula
+
+def calculaXp(Xp,ladoCaixa, nivelParticula):
+    funcao = sqrt(2/ladoCaixa) * np.sin(nivelParticula * np.pi * Xp / ladoCaixa)
+    return funcao**2 
 
 
 # 1 / lambda = R(1/nf^2 - 1/ni^2)

@@ -3,8 +3,6 @@ from tkinter import messagebox
 from ProjetoFisicaParticula import *
 
 
-# saída de valores / formatar
-# Calculadora 2 / Xp e saída de texto
 # arrumar probabilidade e ver se tudo ta dando certo / +/-
 # gravar vídeo
 
@@ -34,23 +32,22 @@ def onclick():
 
     calculaValores()
 
-    rotulo3['text'] = ['Função de onda no nível inicial: ', funcaoInicial[0], ' * sen(', funcaoInicial[1], ')', 
-                    '\nFunção de onda no nível final: ', funcaoFinal[0], ' * sen(', funcaoFinal[1], ')', 
-                    '\nEnergia do ' + particula + ' no nível inicial: ' , energiaInicial[0] , 'J/s',
-                    '\nEnergia do '+ particula +' no nível inicial: ' , energiaInicial[1], 'eV',
-                    '\nEnergia do '+ particula +' no nível final: ', energiaFinal[0], 'J/s',
-                    '\nEnergia do '+ particula +' no nível final: ', energiaFinal[1], 'eV',
-                    '\nComprimento de onda do fóton: ', valoresFoton[0],
-                    '\nFrequencia do fóton: ', valoresFoton[1],
-                    '\nEnergia inicial do fóton: ', valoresFoton[2], 
-                    '\nEnergia final do fóton: ', valoresFoton[3], 
-                    '\nVelocidade do ' + particula + ' no nível inicial: ', velocidade[0], 'm/s',
-                    '\nVelocidade do ' + particula + ' no nível final: ', velocidade[1], 'm/s',
-                    '\nComprimento de onda de DeBroglie do ' + particula + ' no nível inicial: ',
-                    comprimentoDeBrglie[0],
-                    '\nComprimento de onda de DeBroglie do '+ particula +' no nível final: ',
-                    comprimentoDeBrglie[1],
-                    '\nProbabilidade: ', valorProbabilidade[0]]  
+    rotulo3['text'] = ['}','Função','de', 'onda', 'no', 'nível', 'inicial', ':', funcaoInicial[0],'*', 'sen', '(', funcaoInicial[1], ')', 
+                        '\n','Função', 'de', 'onda', 'no', 'nível', 'final',':', funcaoFinal[0], '*', 'sen','(', funcaoFinal[1], ')', 
+                        '\n','Energia', 'do', particula, 'no', 'nível', 'inicial',':', energiaInicial[0], 'J','/','s',
+                        '\n','Energia', 'do', particula, 'no', 'nível', 'inicial',':', energiaInicial[1], 'e','V',
+                        '\n','Energia', 'do', particula, 'no', 'nível', 'final',':', energiaFinal[0], 'J','/','s',
+                        '\n','Energia', 'do', particula, 'no', 'nível', 'final',':', energiaFinal[1], 'e','V',
+                        '\n','Comprimento', 'de','onda', 'do', 'fóton',':', valoresFoton[0],
+                        '\n','Frequencia', 'do', 'fóton',':', valoresFoton[1],
+                        '\n','Energia', 'inicial', 'do' 'fóton',':', valoresFoton[2], 
+                        '\n','Energia', 'final', 'do', 'fóton',':', valoresFoton[3], 
+                        '\n','Velocidade', 'do', particula,'no', 'nível', 'inicial',':', velocidade[0], 'm','/','s',
+                        '\n','Velocidade', 'do', particula,'no', 'nível', 'final',':', velocidade[1], 'm','/','s',
+                        '\n','Comprimento', 'de', 'onda','de', 'DeBroglie', 'do' , particula , 'no', 'nível', 'inicial',':',comprimentoDeBrglie[0],
+                        '\n','Comprimento', 'de', 'onda', 'de', 'DeBroglie', 'do', particula , 'no', 'nível', 'final',':',comprimentoDeBrglie[1],
+                        '\n','Probabilidade', 'no', 'nível', 'inicial',':', valorProbabilidade[0],
+                        '\n','Probabilidade', 'no','nível','final',':',valorProbabilidade[1],'{']
 
 def onclick2():
     global Amplitude
@@ -70,7 +67,10 @@ def onclick2():
         k = float(k) 
         Xp = float(Xp)
 
-    rotulo3['text'] = []
+    resultados = calculaLado(Amplitude,k,Xp)
+    rotulo3['text'] = ['}','Valor','do','lado','da','caixa',':', resultados[0],
+                       '\n', 'Valor' ,'do' ,'nível',':', resultados[1],
+                       '\n','Valor','do','Xp',':',resultados[2],'{']
 
 def eletron():
     global particula
