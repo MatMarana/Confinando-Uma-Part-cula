@@ -79,8 +79,8 @@ def probabilidade(ladoCaixa,nInicial,nFinal,valorA,valorB):
     valoresFinal = funcaoOnda(ladoCaixa, nFinal)
     x = sp.symbols('x')
 
-    funcaoInicial = valoresInicial[0] * sin(valoresInicial[1] * x) 
-    funcaoFinal = valoresFinal[0] * sin(valoresInicial[1] * x)
+    funcaoInicial = valoresInicial[0] * sin(valoresInicial[1]) 
+    funcaoFinal = valoresFinal[0] * sin(valoresInicial[1])
 
     probabilidadeInicial = sp.integrate((funcaoInicial**2),(x,valorA,valorB)) 
     probabilidadeFinal = sp.integrate((funcaoFinal**2),(x,valorA,valorB))
@@ -110,7 +110,7 @@ def plotGraphicFunctionInicial(ladoCaixa,nInicial):
     plt.plot(x_values, psi_values, label=f"n = {nInicial}")
     plt.xlabel("Posição (x)")
     plt.ylabel("Função de Onda (Ψ(x))")
-    plt.title("Gráfico da Função de Onda")
+    plt.title("Gráfico da Função de Onda no Nivel Inicial")
     plt.grid(True)
     plt.legend()
     plt.show()
@@ -119,7 +119,7 @@ def plotGraphicFunctionInicial(ladoCaixa,nInicial):
     plt.plot(x_values, prob_values, label="Probabilidade")
     plt.xlabel("Posição (x)")
     plt.ylabel("Probabilidade")
-    plt.title("Gráfico de Probabilidade da Função de Onda")
+    plt.title("Gráfico de Probabilidade da Função de Onda no Nivel Inicial")
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -137,7 +137,7 @@ def plotGraphicFunctionFinal(ladoCaixa,nFinal):
     plt.plot(x_values, psi_values, label=f"n = {nFinal}")
     plt.xlabel("Posição (x)")
     plt.ylabel("Função de Onda (Ψ(x))")
-    plt.title("Gráfico da Função de Onda")
+    plt.title("Gráfico da Função de Onda no Nivel Final")
     plt.grid(True)
     plt.legend()
     plt.show()
@@ -146,12 +146,21 @@ def plotGraphicFunctionFinal(ladoCaixa,nFinal):
     plt.plot(x_values, prob_values, label="Probabilidade")
     plt.xlabel("Posição (x)")
     plt.ylabel("Probabilidade")
-    plt.title("Gráfico de Probabilidade da Função de Onda")
+    plt.title("Gráfico de Probabilidade da Função de Onda no Nivel Final")
     plt.legend()
     plt.grid(True)
     plt.show()
 
-    
+
+def calculaLado(Amplitude, K):
+    ladoCaixa = 2/(Amplitude**2)
+    nivelParticula = calculaNivel(ladoCaixa, K)
+    return ladoCaixa,nivelParticula
+
+def calculaNivel(ladoCaixa, K):
+    nivelParticula = (ladoCaixa * K) / PI
+    return nivelParticula
+
 
 # 1 / lambda = R(1/nf^2 - 1/ni^2)
 # Energia de um fóton = hf (planck e frequencia)
